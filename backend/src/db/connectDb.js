@@ -2,7 +2,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 
 async function connectDB() {
-  // console.log()
+  console.log(process.env.MONGODB_URI);
   try {
     const connectionObject = await mongoose.connect(
       `${process.env.MONGODB_URI}/job-seekers`
