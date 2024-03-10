@@ -2,10 +2,10 @@ import "dotenv/config";
 import mongoose from "mongoose";
 
 async function connectDB() {
-    // console.log()
+  // console.log()
   try {
     const connectionObject = await mongoose.connect(
-      `${process.env.MONGODB_URI}/`
+      `${process.env.MONGODB_URI}/job-seekers`
     );
     console.log(
       `\n MongoDB connected. DB HOST: ${connectionObject.connection.host}`
