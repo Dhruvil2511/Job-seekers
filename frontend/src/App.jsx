@@ -1,7 +1,5 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-
 import Home from "./pages/home/Home";
 import PageNotFound from "./pages/pageNotFound/PageNotFound";
 import ContactList from "./pages/contact/Contact";
@@ -19,8 +17,6 @@ function App() {
     <div className="flex flex-col h-screen justify-between ">
       <Header />
       <div className="flex-grow ">
-
-      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="*" element={<PageNotFound />} />
@@ -28,8 +24,6 @@ function App() {
         <Route path="/search-jobs" element={<SearchJobs />} />
         <Route path="/company-list" element={<CompanyList />} />
         <Route path="/about" element={<About />} />
-
-       
       </Routes>
       </div>
       <Footer />
@@ -37,5 +31,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;
