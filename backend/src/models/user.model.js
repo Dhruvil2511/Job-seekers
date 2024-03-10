@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
     experience: { type: [String] },
     created_date: { type: Date },
   },
-  { collection: "job-openings" }
+  { collection: "user" }
 );
 
 // Define the model
