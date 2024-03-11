@@ -13,5 +13,4 @@ It is built with MERN stack and VITE
 <br>
 <h2>Get Started On Local Computer</h2>
 <br>
-```bash
-cd frontend
+``` TEST ```
