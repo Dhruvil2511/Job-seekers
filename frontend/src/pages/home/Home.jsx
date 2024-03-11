@@ -52,7 +52,7 @@ const Home = () => {
     try {
       setResumeParsingLoading(true);
       const fetchedskills = await axios.post(
-        `http://127.0.0.1:5000/upload_resume`,
+        `https://job-seekers-pdf-py.onrender.com/upload_resume`,
         formdata,
         {
           headers: {
@@ -75,7 +75,7 @@ const Home = () => {
     setIsJobsLoading(true);
     try {
       const jobs = await axios.get(
-        `http://localhost:6969/api/v1/jobs/get-jobs`,
+        `https://job-seekers-be.onrender.com/api/v1/jobs/get-jobs`,
         {
           withCredentials: true,
           params: {
@@ -96,7 +96,7 @@ const Home = () => {
     if (skills.length === 0) return;
     try {
       const result = await axios.post(
-        `http://localhost:6969/api/v1/jobs/get-related-jobs`,
+        `https://job-seekers-be.onrender.com/api/v1/jobs/get-related-jobs`,
         { skills },
         {
           withCredentials: true,

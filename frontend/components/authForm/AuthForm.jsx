@@ -28,7 +28,7 @@ const AuthForm = ({ LoginOrRegister, closeDialog }) => {
     e.preventDefault();
     setAuthLoading(true);
     try {
-      const { data } = await axios.post(`http://localhost:6969/api/v1/user/register`, {name, email, password }, {
+      const { data } = await axios.post(`https://job-seekers-be.onrender.com/api/v1/user/register`, {name, email, password }, {
         headers: {
             "Content-type": "application/json"
         },
@@ -67,7 +67,7 @@ const AuthForm = ({ LoginOrRegister, closeDialog }) => {
     e.preventDefault();
     setAuthLoading(true);
     try {
-      const { data } = await axios.post(`http://localhost:6969/api/v1/user/login`, { email, password }, {
+      const { data } = await axios.post(`https://job-seekers-be.onrender.com/api/v1/user/login`, { email, password }, {
         headers: {
             "Content-type": "application/json"
         },

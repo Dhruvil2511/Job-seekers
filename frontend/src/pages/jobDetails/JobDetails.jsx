@@ -8,7 +8,7 @@ const JobDetails = () => {
   const fetchJobDetails = async () => {
     try {
       const jobDetails = await axios.get(
-        `http://localhost:6969/api/v1/jobs/get-job/`,
+        `https://job-seekers-be.onrender.com/api/v1/jobs/get-job/`,
         {
           withCredentials: true,
           params: { jobid: id },

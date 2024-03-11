@@ -52,7 +52,7 @@ const Header = () => {
 
   const loaduser = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:6969/api/v1/user/me`, {
+      const { data } = await axios.get(`https://job-seekers-be.onrender.com/api/v1/user/me`, {
         withCredentials: true,
       });
       console.log(data);
@@ -65,7 +65,7 @@ const Header = () => {
   const logout = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:6969/api/v1/user/logout`,
+        `https://job-seekers-be.onrender.com/api/v1/user/logout`,
         {
           withCredentials: true,
         }
