@@ -7,7 +7,7 @@ In today's dynamic job market, navigating the search process can be time-consumi
 It is built with MERN stack and VITE
 
 ## Deployed On
-
+Coming Soon!!
 ## Key Features
 * Effortless Resume Upload: Simply upload your resume and our platform takes care of the rest.
 * Intelligent Skill Extraction: Our technology automatically identifies your key skills and areas of expertise from your resume.
