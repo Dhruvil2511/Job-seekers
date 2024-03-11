@@ -99,16 +99,10 @@ const Header = () => {
               alt="Flowbite Logo"
             />
             <span className="hidden md:block self-center text-2xl font-semibold whitespace-nowrap text-white">
-              S33kJ0bs
+              Job Seekers
             </span>
           </a>
           <div className="flex md:order-2 space-x-3 rtl:space-x-reverse">
-            <button
-              type="button"
-              className="text-white focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
-            >
-              + Add a Job
-            </button>
             {isAuthenticated ? (
               <>
                 <AlertDialog open={openSignOut} onOpenChange={setOpenSignOut}>

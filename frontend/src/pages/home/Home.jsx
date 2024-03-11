@@ -263,7 +263,7 @@ const Home = () => {
           </form>
           <div className="flex mt-5 ">
             <div className="px-2 py-2 flex justify-center items-center">
-              {skills.length > 0 ? "Parsed skills" : " Showing all skills"}
+              {skills.length > 0 ? "Parsed skills: " : " Showing all jobs"}
             </div>
             {skills.length > 0 &&
               skills.map((item, index) => (
