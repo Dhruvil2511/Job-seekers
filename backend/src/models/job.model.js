@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-// Define the schema
 const jobOpeningSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
