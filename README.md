@@ -8,8 +8,9 @@ In today's dynamic job market, navigating the search process can be time-consumi
 <br>
 It is built with MERN stack and VITE
 <br>
-<h2><b>Deployed On</b>b></h2>
+<h2><b>Deployed On</b></h2>
 
 <br>
 <h2>Get Started On Local Computer</h2>
 <br>
+``` TEST```
