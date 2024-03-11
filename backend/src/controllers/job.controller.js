@@ -11,7 +11,9 @@ const getJobList = asyncHandler(async (req, res) => {
         index: "job-opening-index",
         text: {
           query: search,
-          path: "title",
+          path: {
+            wildcard: "*",
+          },
         },
       },
     });
@@ -20,7 +22,6 @@ const getJobList = asyncHandler(async (req, res) => {
   pipeline.push({ $match: {} });
 
   const data = await JobOpening.aggregate([...pipeline]);
-  console.log(data);
   return res.status(200).send(data);
 });
 
