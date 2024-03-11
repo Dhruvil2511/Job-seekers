@@ -240,7 +240,7 @@ const Home = () => {
 
         <div
           id="search-jobs"
-          className="flex items-center  flex-col top-[10rem] md:top-[14rem]"
+          className=" flex items-center  flex-col top-[10rem] md:top-[14rem]"
         >
           <div className="text-[2.5rem] md:text-[5rem]">Jobs</div>
           <form
@@ -248,13 +248,13 @@ const Home = () => {
             onSubmit={handleFormSubmit}
           >
             <input
-              className="pl-10  rounded-s-full h-12 bg-[#131d1b] outline-none border-none w-full "
+              className="z-20 pl-10  rounded-s-full h-12 bg-[#131d1b] outline-none border-none w-full "
               type="search"
               placeholder="Search for company, role, skill, location, or type..."
               onChange={(event) => setSearch(event.target.value)}
             />
             <Button
-              className="h-[2.9rem] rounded-r-full"
+              className="z-20 h-[2.9rem] rounded-r-full"
               variant="outline"
               type="submit"
             >
