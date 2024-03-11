@@ -145,33 +145,42 @@ const Home = () => {
       </div>
       <div className=" py-64 flex-grow flex flex-col gap-5">
         {jobs.length > 0 ? (
-          jobs.map((job) => (
-            <Link to={`/jobs/${job._id}`} key={job._id}>
-              <Card className="flex justify-between" key={job._id}>
-                <CardHeader>
-                  <CardTitle>{job.title}</CardTitle>
-                  <CardDescription>{job.company}</CardDescription>
-                  <CardDescription>{job.location}</CardDescription>
-                  <CardDescription>{job.domain}</CardDescription>
-                  <CardDescription className="flex gap-2 flex-wrap">
-                    {job.required_skills.map((skill) => (
-                      <div className="cursor-pointer rounded-3xl border-2  px-3 py-1 text-xs font-semibold transition hover:bg-white hover:bg-opacity-50 hover:text-black">
-                        <span>{skill}</span>
-                      </div>
-                    ))}
-                  </CardDescription>
+          jobs.map((job) => {
+            // Generate a random two-letter string
+            const randomString =
+              String.fromCharCode(65 + Math.floor(Math.random() * 26)) +
+              String.fromCharCode(65 + Math.floor(Math.random() * 26));
 
-                  
-                </CardHeader>
-                <div>
-                    <img
-                      src="https://dummyimage.com/100x100/77777d/4a3c4a&text=QR"
-                      alt=""
-                    />
-                  </div>
-              </Card>
-            </Link>
-          ))
+            return (
+              <Link to={`/jobs/${job._id}`} key={job._id}>
+                <Card className="flex justify-between" key={job._id}>
+                  <CardContent className="py-4">
+                    <div className="flex flex-col md:flex-row gap-12">
+                      <div>
+                        <img
+                          src={`https://dummyimage.com/100x100/77777d/4a3c4a&text=${randomString}`}
+                          alt=""
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <CardTitle>{job.title}</CardTitle>
+                        <CardDescription>{job.company}</CardDescription>
+                        <CardDescription>{job.location}</CardDescription>
+                        <CardDescription>{job.domain}</CardDescription>
+                        <CardDescription className="flex gap-2 flex-wrap">
+                          {job.required_skills.map((skill) => (
+                            <div className="cursor-pointer rounded-3xl border-2  px-3 py-1 text-xs font-semibold transition hover:bg-white hover:bg-opacity-50 hover:text-black">
+                              <span>{skill}</span>
+                            </div>
+                          ))}
+                        </CardDescription>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            );
+          })
         ) : (
           <div>
             <p>No data found</p>
