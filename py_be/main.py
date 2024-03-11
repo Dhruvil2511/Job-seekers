@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 
 def extract_text_from_pdf(file):
@@ -33,7 +33,6 @@ def home():
 
 @app.route('/upload_resume', methods=['POST'])
 def upload_resume():
-    print('Hello')
     if 'resume' not in request.files:
         print('file not found')
         return jsonify({'error': 'No file part'})
@@ -44,7 +43,7 @@ def upload_resume():
 
     resume_text = extract_text_from_pdf(resume_file)
     # Here you would implement logic to parse resume_text and extract skills and experience
-    skills_to_extract = ['Python', 'JavaScript', 'SQL', 'Team leadership', 'NodeJs', 'MongoDB', 'ExpressJs', 'CSS', 'HTML', 'Javascript', 'Machine Learing', 'Deep Learning', 'ReactJs', 'Java', 'C', '#C', 'python', 'automation', 'numpy', 'C++', '.Net', 'Angular']
+    skills_to_extract = ['Python', 'JavaScript', 'SQL', 'Team leadership', 'NodeJs', 'MongoDB', 'ExpressJs', 'CSS', 'HTML', 'Javascript', 'Machine Learning', 'Deep Learning', 'ReactJs', 'Java', 'C', '#C', 'python', 'automation', 'numpy', 'C++', '.Net', 'Angular', 'HTML5', 'Git', 'Data Analysis', 'Data Visualization', 'RESTful API', 'Django', 'Ruby on Rails', 'AWS', 'Docker']
     
     skills = extract_skills(resume_text, skills_to_extract)
     # For demonstration, let's assume we extracted some skills and experience
@@ -53,5 +52,5 @@ def upload_resume():
 
     return jsonify({'skills': skills, 'experience': experience})
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True)

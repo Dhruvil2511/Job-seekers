@@ -9,28 +9,33 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import { useToast } from "@/components/ui/use-toast";
-// import { ToastAction } from "@radix-ui/react-toast";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@radix-ui/react-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import axios from "axios";
+ 
 import { useState } from "react";
-import { useToast } from "../ui/use-toast";
-
+ 
 const AuthForm = ({ LoginOrRegister, closeDialog }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  const [name, setUsername] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
   const { toast } = useToast();
   // console.log(email, password, username);
-
+ 
   const registerUser = async (e) => {
     e.preventDefault();
-
     setAuthLoading(true);
     try {
-      //register user here
-
+      const { data } = await axios.post(`http://localhost:6969/api/v1/user/register`, {name, email, password }, {
+        headers: {
+            "Content-type": "application/json"
+        },
+        withCredentials: true,
+      });
+      console.log(data);
+ 
       setAuthLoading(false);
       closeDialog();
       toast({
@@ -42,6 +47,7 @@ const AuthForm = ({ LoginOrRegister, closeDialog }) => {
         ),
         duration: 5000,
       });
+      window.location.reload();
     } catch (err) {
       setAuthLoading(false);
       console.log(err.message);
@@ -56,12 +62,18 @@ const AuthForm = ({ LoginOrRegister, closeDialog }) => {
       });
     }
   };
-
+ 
   const loginUser = async (e) => {
     e.preventDefault();
     setAuthLoading(true);
     try {
-      //login user here
+      const { data } = await axios.post(`http://localhost:6969/api/v1/user/login`, { email, password }, {
+        headers: {
+            "Content-type": "application/json"
+        },
+        withCredentials: true,
+    });
+    console.log(data);
       setAuthLoading(false);
       closeDialog();
       toast({
@@ -73,6 +85,7 @@ const AuthForm = ({ LoginOrRegister, closeDialog }) => {
         ),
         duration: 5000,
       });
+      window.location.reload();
     } catch (err) {
       setAuthLoading(false);
       console.log(err);
@@ -87,7 +100,7 @@ const AuthForm = ({ LoginOrRegister, closeDialog }) => {
       });
     }
   };
-
+ 
   return (
     <Tabs defaultValue={LoginOrRegister} className="">
       <TabsList className="grid w-full grid-cols-2 mt-4">
@@ -166,7 +179,7 @@ const AuthForm = ({ LoginOrRegister, closeDialog }) => {
               Enter the required details below.
             </CardDescription>
           </CardHeader>
-
+ 
           <CardContent>
             <>
               <form onSubmit={registerUser}>
@@ -234,5 +247,5 @@ const AuthForm = ({ LoginOrRegister, closeDialog }) => {
     </Tabs>
   );
 };
-
+ 
 export default AuthForm;

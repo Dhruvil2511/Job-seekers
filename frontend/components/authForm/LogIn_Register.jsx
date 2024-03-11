@@ -7,7 +7,7 @@ import AuthForm from "./AuthForm";
 
 const LogIn_Register = ({onClose,LoginOrRegister}) => {
   return (
-    <Dialog className=""  open={true} onOpenChange={onClose}>
+    <Dialog className="z-96"  open={true} onOpenChange={onClose}>
       <DialogContent className="container max-w-sm md:max-w-md">
         <AuthForm LoginOrRegister={LoginOrRegister} closeDialog={onClose}/>
       </DialogContent>
