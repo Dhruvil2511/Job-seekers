@@ -1,20 +1,26 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
+const colors = require("tailwindcss/colors");
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   variants: {
     extend: {
-      borderColor: ['hover'],
-      boxShadow: ['hover'],
+      borderColor: ["hover"],
+      boxShadow: ["hover"],
     },
   },
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
   ],
   theme: {
-    
     container: {
       center: true,
       padding: "2rem",
@@ -23,12 +29,12 @@ module.exports = {
       },
     },
     extend: {
-      zIndex:{
-        "negative1": "-1",
+      zIndex: {
+        negative1: "-1",
       },
-      height:{
+      height: {
         "128": "32rem",
-        "144": "36rem,"
+        "144": "36rem,",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -96,5 +102,16 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), addVariablesForColors],
+};
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
 }
