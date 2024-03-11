@@ -15,6 +15,7 @@ import {
 const Home = () => {
 
   const [jobs, setJobs] = useState([]);
+  //fetch data
   const fetchJobsFromDb = async () => {
     try {
       const  jobs  = await axios.get(`http://localhost:6969/api/v1/jobs/get-jobs`, {
