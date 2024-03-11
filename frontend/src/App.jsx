@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import PageNotFound from "./pages/pageNotFound/PageNotFound";
@@ -8,10 +7,12 @@ import Footer from "@/components/footer/Footer";
 import SearchJobs from "./pages/searchJobs/SearchJobs";
 import CompanyList from "./pages/companyList/CompanyList";
 import About from "./pages/about/About";
-
+import JobDetails from "./pages/jobDetails/JobDetails";
+import { Toaster } from "@/components/ui/toaster";
+ 
 function App() {
-  
-
+ 
+ 
   return (
     <BrowserRouter>
     <div className="flex flex-col h-screen justify-between ">
@@ -20,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="*" element={<PageNotFound />} />
+        <Route path="/jobs/:id" element={<JobDetails />} />
         <Route path="/contact" element={<ContactList />} />
         <Route path="/search-jobs" element={<SearchJobs />} />
         <Route path="/company-list" element={<CompanyList />} />
@@ -27,6 +29,7 @@ function App() {
       </Routes>
       </div>
       <Footer />
+      <Toaster />
       </div>
     </BrowserRouter>
   );

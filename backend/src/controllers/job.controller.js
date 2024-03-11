@@ -2,17 +2,26 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { JobOpening } from "../models/job.model.js";
 
 const getJobList = asyncHandler(async (req, res) => {
-  const { category, search } = req.query;
-  let { page, limit } = req.query;
-  let skip = (page - 1) * limit;
+  const { search } = req?.query;
+  let pipeline = [];
 
-  try {
-    page = Number(page) || 1;
-    limit = Number(limit) || 10;
-  } catch (error) {
-    res.status(400).json({ error: "error" });
+  if (search) {
+    pipeline.push({
+      $search: {
+        index: "job-opening-index",
+        text: {
+          query: search,
+          path: {
+            wildcard: "*",
+          },
+        },
+      },
+    });
   }
-  const data = await JobOpening.find({});
+
+  pipeline.push({ $match: {} });
+
+  const data = await JobOpening.aggregate([...pipeline]);
   return res.status(200).send(data);
 });
 
@@ -25,4 +34,15 @@ const getJob = asyncHandler(async (req, res) => {
   return res.status(200).send(data);
 });
 
-export { getJobList, getJob };
+const getRelatedJobs = asyncHandler(async (req, res) => {
+  const { skills } = req.body;
+
+  const allJobs = await JobOpening.find();
+  const result = allJobs.filter((job) => {
+    return job.required_skills.some((skill) => skills.includes(skill));
+  });
+
+  res.status(200).json(result);
+});
+
+export { getJobList, getJob, getRelatedJobs };

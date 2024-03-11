@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import { register, login, logout, getprofile, uploadresume } from "../controllers/user.controller.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 import singleUpload from "../middlewares/multer.js";
