@@ -1,8 +1,12 @@
 from flask import Flask, request, jsonify
 from pypdf import PdfReader 
 import re
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
+
 
 def extract_text_from_pdf(file):
     reader = PdfReader(file)
@@ -29,7 +33,9 @@ def home():
 
 @app.route('/upload_resume', methods=['POST'])
 def upload_resume():
+    print('Hello')
     if 'resume' not in request.files:
+        print('file not found')
         return jsonify({'error': 'No file part'})
     
     resume_file = request.files['resume']
@@ -47,5 +53,5 @@ def upload_resume():
 
     return jsonify({'skills': skills, 'experience': experience})
 
-if __name__ == '__main__':
+if __name__ == '_main_':
     app.run(debug=True)

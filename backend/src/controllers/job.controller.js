@@ -34,4 +34,15 @@ const getJob = asyncHandler(async (req, res) => {
   return res.status(200).send(data);
 });
 
-export { getJobList, getJob };
+const getRelatedJobs = asyncHandler(async (req, res) => {
+  const { skills } = req.body;
+
+  const allJobs = await JobOpening.find();
+  const result = allJobs.filter((job) => {
+    return job.required_skills.some((skill) => skills.includes(skill));
+  });
+
+  res.status(200).json(result);
+});
+
+export { getJobList, getJob, getRelatedJobs };
