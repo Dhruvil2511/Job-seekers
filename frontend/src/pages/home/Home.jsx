@@ -62,7 +62,7 @@ const Home = () => {
         }
       );
       setSkills(fetchedskills.data.skills);
-      console.log(fetchedskills.data.skills);
+      setFileName("");
     } catch (error) {
       console.log(error);
     } finally {
@@ -198,7 +198,7 @@ const Home = () => {
             className="right flex justify-center items-center"
             style={{ width: "50%" }}
           >
-            <div className="flex-col" style={{ zIndex: 99 }}>
+            <div className="flex-col" style={{ zIndex: 10 }}>
               <form
                 className="flex-col file-upload-form"
                 onSubmit={submitHandler}
