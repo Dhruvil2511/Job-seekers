@@ -16,5 +16,4 @@ router.route("/me").get(isAuthenticated ,getprofile);
 
 router.route("/uploadresume").put(isAuthenticated, singleUpload, uploadresume);
 
-
 export default router;
