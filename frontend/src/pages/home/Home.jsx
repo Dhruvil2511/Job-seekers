@@ -23,7 +23,7 @@ const Home = () => {
   const [resume, setResume] = useState(null);
   const [fileName, setFileName] = useState(null);
 
-  const [skills, setSkills] = useState(["Python", "Javascript"]);
+  const [skills, setSkills] = useState([]);
   const [resumeParsingLoading, setResumeParsingLoading] = useState(false);
   const [isJobsLoading, setIsJobsLoading] = useState(true);
 
@@ -130,86 +130,69 @@ const Home = () => {
     fetchJobsFromDb();
   }
 
-  return (
-    <div className="container">
-      <div className="flex items-center relative flex-col top-[8rem] md:top-[10rem]">
-        <form action="" method="post">
-          <div className=" flex gap-4 flex-col">
-            <label>Submit Your CV here : </label>
-            <input
-              type="file"
-              name="upload"
-              accept="application/pdf"
-              onChange={inputhandler}
-            />
-            <Button type="submit" onClick={submitHandler}>
-              submit
-            </Button>
-          </div>
-        </form>
-      </div>
-      <div className="flex items-center relative flex-col top-[10rem] md:top-[14rem]">
-        <div className="text-[2.5rem] md:text-[5rem]">Jobs</div>
-        <form
-          className="flex items-center yw-full md:w-[calc(100%-400px)]"
-          onSubmit={handleFormSubmit}
-        >
-          <input
-            className="pl-10  rounded-s-full h-12 bg-[#131d1b] outline-none border-none w-full "
-            type="search"
-            placeholder="Search for a Job..."
-            onChange={(event) => setSearch(event.target.value)}
-          />
-          <Button
-            className="h-[2.9rem] rounded-r-full"
-            variant="outline"
-            type="submit"
-          >
-            Search
-          </Button>
-        </form>
-      </div>
-      <div className=" py-64 flex-grow flex flex-col gap-5">
-        {jobs.length > 0 ? (
-          jobs.map((job) => {
-            // Generate a random two-letter string
-            const randomString =
-              String.fromCharCode(65 + Math.floor(Math.random() * 26)) +
-              String.fromCharCode(65 + Math.floor(Math.random() * 26));
+  const removeSkill = (indexToRemove) => {
+    setSkills((prevSkills) =>
+      prevSkills.filter((_, index) => index !== indexToRemove)
+    );
+  };
 
-            return (
-              <Link to={`/jobs/${job._id}`} key={job._id}>
-                <Card className="flex justify-between" key={job._id}>
-                  <CardContent className="py-4">
-                    <div className="flex flex-col md:flex-row gap-12">
-                      <div>
-                        <img
-                          src={`https://dummyimage.com/100x100/77777d/4a3c4a&text=${randomString}`}
-                          alt=""
-                        />
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <CardTitle>{job.title}</CardTitle>
-                        <CardDescription>{job.company}</CardDescription>
-                        <CardDescription>{job.location}</CardDescription>
-                        <CardDescription>{job.domain}</CardDescription>
-                        <CardDescription className="flex gap-2 flex-wrap">
-                          {job.required_skills.map((skill) => (
-                            <div className="cursor-pointer rounded-3xl border-2  px-3 py-1 text-xs font-semibold transition hover:bg-white hover:bg-opacity-50 hover:text-black">
-                              <span>{skill}</span>
-                            </div>
-                          ))}
-                        </CardDescription>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            );
-          })
-        ) : (
-          <div>
-            <p>No data found</p>
+  return (
+    <>
+      {resumeParsingLoading && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center", // Center horizontally
+            alignItems: "center", // Center vertically
+            backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent black overlay
+            backdropFilter: "blur(1px)", // Apply blur effect
+            zIndex: 9998, // Ensure it's behind the loader
+          }}
+        >
+          <Lottie
+            animationData={resumeLoader}
+            loop={true}
+            style={{ width: "10%" }} // Adjust the size as needed
+          />
+        </div>
+      )}
+
+      <div className="container mt-20" id="parse-resume">
+        <div className="flex flex-col justify-center items-center w-full ">
+          <TypewriterEffectSmooth
+            className="flex-row  justify-center items-center "
+            words={[
+              {
+                text: "Parse your resume now and find jobs matching your skills.",
+                className: "text-white text-base md:text-3xl font-bold",
+              },
+            ]}
+          />
+          <TypewriterEffectSmooth
+            className="flex-row  justify-center items-center"
+            words={[
+              {
+                text: "Try Job seekers Now!",
+                className: "text-[#1725CA] text-3xl font-bold underline",
+              },
+            ]}
+          />
+        </div>
+        <div className="w-full flex flex-col md:flex-row items-center justify-center">
+          <div
+            className="left flex-col justify-center items-center"
+            style={{ width: "50%" }}
+          >
+            <Lottie
+              animationData={heroAnimation}
+              loop={true}
+              style={{ width: "80%" }}
+            />
           </div>
           <div
             className="right flex justify-center items-center"
@@ -278,20 +261,19 @@ const Home = () => {
               Search
             </Button>
           </form>
-          <div className="flex mt-5 ">
-            <div className="px-2 py-2 flex justify-center items-center">
+          <div className="flex flex-wrap mt-5 gap-4">
+            <div className="px-2 flex justify-center items-center">
               {skills.length > 0 ? "Parsed skills: " : " Showing all jobs"}
             </div>
             {skills.length > 0 &&
               skills.map((item, index) => (
                 <div
                   key={index + 1}
-                  className="tags px-2 py-2 flex justify-center items-center"
-                  style={{ width: "fit-content" }}
+                  className="z-20 cursor-pointer rounded-3xl border-2 px-3 py-2 text-xs font-semibold transition hover:bg-white hover:bg-opacity-50 hover:text-black"
                 >
                   <span className="mx-2">{item}</span>
                   <button
-                    className="mx-2"
+                    className="mx-2 cursor-pointer"
                     style={{
                       background: "transparent",
                       border: "none",
