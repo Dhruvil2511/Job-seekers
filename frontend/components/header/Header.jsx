@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LogIn_Register from "../authForm/LogIn_Register";
-
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
@@ -17,12 +17,12 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useNavigate } from "react-router-dom";
 import { BackgroundBeams } from "../ui/background-beams";
-
 const Header = () => {
   const [openSignOut, setOpenSignOut] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [LoginOrRegister, setLoginOrRegister] = useState("");
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isAuthenticated, setisAuthentication] = useState(false);
   const navigate = useNavigate();
 
   const { toast } = useToast();
@@ -40,9 +40,7 @@ const Header = () => {
   };
 
   const confirmSignOut = () => {
-    signOut(auth).catch((error) => {
-      console.log(error);
-    });
+    logout();
     toast({
       description: "You logged out successfully.",
       action: <ToastAction altText="Close">close</ToastAction>,
@@ -52,11 +50,44 @@ const Header = () => {
     navigate(`/`);
   };
 
+  const loaduser = async () => {
+    try {
+      const { data } = await axios.get(`http://localhost:6969/api/v1/user/me`, {
+        withCredentials: true,
+      });
+      console.log(data);
+      if (data) setisAuthentication(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:6969/api/v1/user/logout`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(data);
+      if (data) setisAuthentication(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    loaduser();
+  }, []);
   return (
     <>
       <BackgroundBeams />
 
-      <nav className="bg-gray-900 sticky w-full  top-0 start-0" style={{ zIndex: 999 }}>
+      <nav
+        className="bg-gray-900 fixed w-full  top-0 start-0"
+        style={{ zIndex: 999 }}
+      >
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a
             href="/"
@@ -68,7 +99,7 @@ const Header = () => {
               alt="Flowbite Logo"
             />
             <span className="hidden md:block self-center text-2xl font-semibold whitespace-nowrap text-white">
-              Job Seekers
+              S33kJ0bs
             </span>
           </a>
           <div className="flex md:order-2 space-x-3 rtl:space-x-reverse">
@@ -78,7 +109,7 @@ const Header = () => {
             >
               + Add a Job
             </button>
-            {false ? (
+            {isAuthenticated ? (
               <>
                 <AlertDialog open={openSignOut} onOpenChange={setOpenSignOut}>
                   <AlertDialogTrigger>
@@ -144,7 +175,7 @@ const Header = () => {
             id="navbar-sticky"
           >
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium  rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0  bg-gray-800 md:bg-gray-900 ">
-            <li>
+              <li>
                 <a
                   href="#parse-resume"
                   className="block py-2 px-3  rounded   md:p-0 md:hover:text-blue-500 text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent "
@@ -162,7 +193,7 @@ const Header = () => {
                   Search Jobs
                 </a>
               </li>
-              
+
               <li>
                 <a
                   href="/about"

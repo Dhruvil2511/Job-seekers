@@ -162,7 +162,7 @@ const Home = () => {
         </div>
       )}
 
-      <div className="container mt-2" id="parse-resume">
+      <div className="container mt-20" id="parse-resume">
         <div className="flex flex-col justify-center items-center w-full">
           <TypewriterEffectSmooth
             className="flex-row  justify-center items-center"
