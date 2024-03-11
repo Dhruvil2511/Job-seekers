@@ -143,42 +143,40 @@ const Home = () => {
           </Button>
         </form>
       </div>
-      <div className="flex gap-16">
-        <div className="py-64">
-          Filter Jobs
-          <Card>
-            <CardContent>
-              <CardDescription>Filter Jobs</CardDescription>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="ml-52 py-64 flex-grow flex flex-col gap-5">
-          {jobs.length > 0 ? (
-            jobs.map((job) => (
-              <Link to={`/jobs/${job._id}`} key={job._id}>
-                <Card key={job._id}>
-                  <CardHeader>
-                    <CardTitle>{job.title}</CardTitle>
-                    <CardDescription>{job.company}</CardDescription>
-                    <CardDescription>{job.location}</CardDescription>
-                    <CardDescription>{job.domain}</CardDescription>
-                    <CardDescription className="flex gap-2 flex-wrap">
-                      {job.required_skills.map((skill) => (
-                        <div className="cursor-pointer rounded-3xl border-2  px-3 py-1 text-xs font-semibold transition hover:bg-white hover:bg-opacity-50 hover:text-black">
-                          <span>{skill}</span>
-                        </div>
-                      ))}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              </Link>
-            ))
-          ) : (
-            <div>
-              <p>No data found</p>
-            </div>
-          )}
-        </div>
+      <div className=" py-64 flex-grow flex flex-col gap-5">
+        {jobs.length > 0 ? (
+          jobs.map((job) => (
+            <Link to={`/jobs/${job._id}`} key={job._id}>
+              <Card className="flex justify-between" key={job._id}>
+                <CardHeader>
+                  <CardTitle>{job.title}</CardTitle>
+                  <CardDescription>{job.company}</CardDescription>
+                  <CardDescription>{job.location}</CardDescription>
+                  <CardDescription>{job.domain}</CardDescription>
+                  <CardDescription className="flex gap-2 flex-wrap">
+                    {job.required_skills.map((skill) => (
+                      <div className="cursor-pointer rounded-3xl border-2  px-3 py-1 text-xs font-semibold transition hover:bg-white hover:bg-opacity-50 hover:text-black">
+                        <span>{skill}</span>
+                      </div>
+                    ))}
+                  </CardDescription>
+
+                  
+                </CardHeader>
+                <div>
+                    <img
+                      src="https://dummyimage.com/100x100/77777d/4a3c4a&text=QR"
+                      alt=""
+                    />
+                  </div>
+              </Card>
+            </Link>
+          ))
+        ) : (
+          <div>
+            <p>No data found</p>
+          </div>
+        )}
       </div>
     </div>
   );
