@@ -47,6 +47,51 @@ const Home = () => {
 
   return (
     <div className="container">
+      <div className="flex items-center relative flex-col top-[8rem] md:top-[10rem]">
+      <form action="" method="post">
+          <div className=" flex gap-4 flex-col">
+          <label>Submit Your CV here : </label>
+          <input
+            type="file"
+            name="upload"
+            accept="application/pdf"
+          />
+          <Button type="submit">submit</Button>
+          </div>
+        </form>
+        </div>
+      <div className="flex items-center relative flex-col top-[10rem] md:top-[14rem]">
+        
+        <div className="text-[2.5rem] md:text-[5rem]">Jobs</div>
+        <div className="flex items-center yw-full md:w-[calc(100%-400px)]">
+          <input
+            className="pl-10  rounded-s-full h-12 bg-[#131d1b] outline-none border-none w-full "
+            type="search"
+            placeholder="Search for a Job..."
+            onKeyUp={searchQueryHandler}
+            onChange={(e) => {
+              setQuery(e.target.value);
+            }}
+          />
+          <Button
+            className="h-[2.9rem] rounded-r-full"
+            variant="outline"
+            onClick={searchButton}
+          >
+            Search
+          </Button>
+        </div>
+      </div>
+      <div className="flex gap-16">
+        <div className="py-64">
+          Filter Jobs
+          <Card>
+            <CardContent>
+              <CardDescription>Filter Jobs</CardDescription>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="md:ml-52 py-64 flex-grow flex flex-col gap-5">
       <div className="flex items-center relative flex-col top-[10rem] md:top-[14rem]">
         <div className="text-[2.5rem] md:text-[5rem]">Jobs</div>
         <form
