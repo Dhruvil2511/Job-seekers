@@ -16,4 +16,13 @@ const getJobList = asyncHandler(async (req, res) => {
   return res.status(200).send(data);
 });
 
-export { getJobList };
+const getJob = asyncHandler(async (req, res) => {
+  const { jobid } = req.query;
+  const data = await JobOpening.findById(jobid);
+  if (!data) {
+    return res.status(404).send({ error: "Job not found" });
+  }
+  return res.status(200).send(data);
+});
+
+export { getJobList, getJob };
