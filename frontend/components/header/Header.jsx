@@ -1,9 +1,55 @@
 import React, { useState } from "react";
+import LogIn_Register from "../authForm/LogIn_Register";
+
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@radix-ui/react-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const [openSignOut, setOpenSignOut] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+  const [LoginOrRegister, setLoginOrRegister] = useState("");
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const { toast } = useToast();
+
+
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
+  };
+
+  const handleLoginOrRegister = (value) => {
+    setLoginOrRegister(value);
+  };
+
+  const handleSignOut = () => {
+    setOpenSignOut(true);
+  };
+
+  const confirmSignOut = () => {
+    signOut(auth).catch((error) => {
+      console.log(error);
+    });
+    toast({
+      description: "You logged out successfully.",
+      action: <ToastAction altText="Close">close</ToastAction>,
+      duration: 5000,
+    });
+    setOpenSignOut(false);
+    navigate(`/`);
   };
 
   return (
@@ -30,12 +76,33 @@ const Header = () => {
             >
               + Add a Job
             </button>
-            <button
+            {false ? (<><AlertDialog open={openSignOut} onOpenChange={setOpenSignOut}>
+              <AlertDialogTrigger>
+                <Button className="!ytext-lg ypt-1" variant="ghost">
+                  Logout
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogTitle>Confirm Logout</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Are you sure you want to logout?
+                </AlertDialogDescription>
+                <AlertDialogAction as={Button} onClick={confirmSignOut}>
+                  Yes, Logout
+                </AlertDialogAction>
+                <AlertDialogCancel as={Button}>Cancel</AlertDialogCancel>
+              </AlertDialogContent>
+            </AlertDialog></>):(<><button
+            onClick={() => {
+              setShowDialog(true);
+              handleLoginOrRegister("Login");
+            }}
               type="button"
               className="text-white focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
             >
               Login
-            </button>
+            </button></>)}
+            
             <button
               onClick={toggleNav}
               type="button"
@@ -105,6 +172,15 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      {showDialog && (
+        <LogIn_Register
+          LoginOrRegister={LoginOrRegister}
+          onClose={() => {
+            setShowDialog(false);
+            setLoginOrRegister("");
+          }}
+        />
+      )}
     </div>
   );
 };
