@@ -9,12 +9,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Link, useNavigate } from "react-router-dom";
 
 
 
 const Home = () => {
 
   const [jobs, setJobs] = useState([]);
+  //fetch data
+  const navigate = useNavigate();
+
   const fetchJobsFromDb = async () => {
     try {
       const  jobs  = await axios.get(`http://localhost:6969/api/v1/jobs/get-jobs`, {
@@ -66,18 +70,37 @@ const Home = () => {
             </Button>
           </div>
         </div>
-        <div>
-          <div className="py-64 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="flex gap-16">
+          <div className="py-64">
+              Filter Jobs
+              <Card>
+                <CardContent>
+                  <CardDescription>Filter Jobs</CardDescription>
+                </CardContent>
+              </Card>
+          </div>
+          <div className="ml-52 py-64 flex-grow flex flex-col gap-5">
+            
             {jobs.map((job) => (
+              <Link to={`/jobs/${job._id}`} key={job._id}>
               <Card key={job._id}>
                 <CardHeader>
                   <CardTitle>{job.title}</CardTitle>
                   <CardDescription>{job.company}</CardDescription>
                   <CardDescription>{job.location}</CardDescription>
                   <CardDescription>{job.domain}</CardDescription>
-                  <CardDescription>{job.required_skills}</CardDescription>
+                  <CardDescription className="flex gap-2 flex-wrap">
+                    {job.required_skills.map((skill) => (
+                      
+                        <div className="cursor-pointer rounded-3xl border-2  px-3 py-1 text-xs font-semibold transition hover:bg-white hover:bg-opacity-50 hover:text-black">
+                          <span >{skill}</span>
+                        </div>
+                      
+                    ))}
+                    </CardDescription>
                 </CardHeader>
               </Card>
+              </Link>
             ))}
           </div>
 

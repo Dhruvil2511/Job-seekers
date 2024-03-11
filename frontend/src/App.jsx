@@ -8,6 +8,7 @@ import Footer from "@/components/footer/Footer";
 import SearchJobs from "./pages/searchJobs/SearchJobs";
 import CompanyList from "./pages/companyList/CompanyList";
 import About from "./pages/about/About";
+import JobDetails from "./pages/jobDetails/JobDetails";
 
 function App() {
   
@@ -20,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="*" element={<PageNotFound />} />
+        <Route path="/jobs/:id" element={<JobDetails />} />
         <Route path="/contact" element={<ContactList />} />
         <Route path="/search-jobs" element={<SearchJobs />} />
         <Route path="/company-list" element={<CompanyList />} />
