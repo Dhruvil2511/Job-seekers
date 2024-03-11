@@ -199,7 +199,10 @@ const Home = () => {
             style={{ width: "50%" }}
           >
             <div className="flex-col" style={{ zIndex: 99 }}>
-              <form className="file-upload-form" onSubmit={submitHandler}>
+              <form
+                className="flex-col file-upload-form"
+                onSubmit={submitHandler}
+              >
                 <label htmlFor="file" className="file-upload-label">
                   <div className="file-upload-design">
                     <svg viewBox="0 0 640 512" height="1em">
@@ -219,6 +222,9 @@ const Home = () => {
                     style={{ display: "none" }}
                   />
                 </label>
+                <Button variant="destructive" className="mt-3" type="submit">
+                  Submit
+                </Button>
               </form>
               <div className="text-center mt-5">
                 {resume
@@ -328,9 +334,15 @@ const Home = () => {
                             </div>
                             <div className="flex flex-col gap-2">
                               <CardTitle>{job.title}</CardTitle>
-                              <CardDescription>{job.company}</CardDescription>
-                              <CardDescription>{job.location}</CardDescription>
-                              <CardDescription>{job.domain}</CardDescription>
+                              <CardDescription>
+                                Company: {job.company}
+                              </CardDescription>
+                              <CardDescription>
+                                Location: {job.location}
+                              </CardDescription>
+                              <CardDescription>
+                                Domain: {job.domain}
+                              </CardDescription>
                               <CardDescription className="flex gap-2 flex-wrap">
                                 {job.required_skills.map((skill, index) => (
                                   <div
