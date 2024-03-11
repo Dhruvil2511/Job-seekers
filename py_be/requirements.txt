@@ -1,3 +1,4 @@
+gunicorn==21.2.0
 jsonpointer==2.3
 jsonschema==4.17.3
 python-json-logger==2.0.4
