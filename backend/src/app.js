@@ -21,6 +21,6 @@ import userRouter from "./routes/user.route.js";
 app.use("/api/v1/jobs", jobRouter);
 app.use("/api/v1/user", userRouter);
 
-export { app };
+export { app }; // Exporting app
 
 app.use(ErrorMiddleware)
